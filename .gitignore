@@ -1,4 +1,9 @@
-# Created by .ignore support plugin (hsz.mobi)
+/vendor
+/node_modules
+/public/storage
+Homestead.yaml
+Homestead.json
+.env
 ### Composer template
 composer.phar
 vendor/
@@ -6,11 +11,6 @@ vendor/
 # Commit your application's lock file http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file
 # You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
 # composer.lock
-### Laravel template
-/bootstrap/compiled.php
-.env.*.php
-.env.php
-.env
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio
 
@@ -58,6 +58,9 @@ atlassian-ide-plugin.xml
 com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
+### Laravel template
+/bootstrap/compiled.php
+.env.*.php
+.env.php
+.env
 
-# ignore lock
-composer.lock

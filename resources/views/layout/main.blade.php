@@ -47,13 +47,7 @@
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">KPN - Digital Work Environment</a>
+                <a class="navbar-brand hidden-xs hidden-sm" href="#">KPN - Digital Work Environment</a>
             </div>
 
             <!-- Right Side Of Navbar -->

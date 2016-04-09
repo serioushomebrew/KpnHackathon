@@ -87,7 +87,7 @@ class EverythingSeeder extends Seeder
         Room::unguard();
         SpecialRoom::unguard();
         foreach (Floor::all() as $floor) {
-            for ($i = 1; $i <= 6; $i++) {
+            for ($i = 1; $i <= rand(4,10); $i++) {
                 if($i == 1) {
                     $specRoom = SpecialRoom::create([
                         "action" => "insertRecognizableActionHere"  // @TODO: remember to manually insert actions

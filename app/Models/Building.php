@@ -31,9 +31,4 @@ class Building extends Model
     public function rooms() {
         return $this->hasManyThrough('\App\Models\Room', '\App\Models\Floor');
     }
-
-    public function users() {
-        return $this->hasManyThrough('\App\Models\User', '\App\Models\Floor');
-    }
-
 }

@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/devdebug', 'DebugController@test');
+
 Route::get('/{building}', ['as' => 'building', function ($building) {
     return view('building',compact('building'));
 }]);

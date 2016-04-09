@@ -9,4 +9,8 @@ class User extends Model {
 	protected $table = 'users';
 	public $timestamps = true;
 
+	public function floor() {
+		return $this->hasOne('\App\Models\Floor', 'id');
+	}
+
 }

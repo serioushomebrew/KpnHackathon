@@ -14,10 +14,8 @@
 
 Route::auth();
 Route::get('/', 'welcome@index');
-Route::get('/home', 'welcome@index');
 Route::resource('chats','ChatsController');
-Route::get('/{building}', ['as' => 'building', function ($building) {
-    return view('building',compact('building'));
-}]);
+Route::get('/{building}', ['as' => 'building', 'uses' => 'welcome@building']);
+
 
 

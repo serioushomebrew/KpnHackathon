@@ -10,8 +10,8 @@
     <title>KPN Digital Work Environment</title>
 
     <!-- Bootstrap Core CSS -->
-    {!! Html::style('bower_components/bootstrap/dist/css/bootstrap.min.css')  !!}
-    {!! Html::style('css/sidebar.css')  !!}
+    {!! Html::style('css/paper/bootstrap.min.css')  !!}
+    {!! Html::style('css/custom.css')  !!}
 
     {{-- Font Awesome --}}
     {!! Html::style('bower_components/font-awesome/css/font-awesome.min.css') !!}
@@ -42,40 +42,47 @@
 </head>
 <body>
 
-<div id="wrapper" class="toggled">
-
-    <!-- Sidebar -->
-    @include('layout.partials.sidebar')
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12">
-                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><i class="fa fa-bars"></i> Afdelingen </a>
-                </div>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">KPN - Digital Work Environment</a>
             </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            {{--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">--}}
+                {{--<ul class="nav navbar-nav">--}}
+                    {{--<li>--}}
+                        {{--<a href="#">About</a>--}}
+                    {{--</li>--}}
+                    {{--<li>--}}
+                        {{--<a href="#">Services</a>--}}
+                    {{--</li>--}}
+                    {{--<li>--}}
+                        {{--<a href="#">Contact</a>--}}
+                    {{--</li>--}}
+                {{--</ul>--}}
+            {{--</div>--}}
+            <!-- /.navbar-collapse -->
         </div>
-        @yield('content')
-    </div>
-    <!-- /#page-content-wrapper -->
+        <!-- /.container -->
+    </nav>
 
-</div>
-<!-- /#wrapper -->
+    @yield('content')
 
 <!-- jQuery and Bootstrap JS -->
 {!! Html::script('bower_components/jquery/dist/jquery.min.js') !!}
 {!! Html::script('bower_components/bootstrap/dist/js/bootstrap.min.js') !!}
-
-<!-- Menu Toggle Script -->
-<script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-</script>
+{!! Html::script('js/scripts.js') !!}
 
 </body>
 
 </html>
+
+

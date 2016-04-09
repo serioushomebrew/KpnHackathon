@@ -1,0 +1,11 @@
+body {
+    margin-top: 64px;
+}
+
+.full {
+    height: 100%;
+}
+
+.building{
+    cursor: pointer;
+}

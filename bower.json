@@ -20,5 +20,9 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "font-awesome": "FortAwesome/Font-Awesome#^4.5.0"
+  }
 }

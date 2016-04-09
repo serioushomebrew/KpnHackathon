@@ -1,0 +1,24 @@
+{
+  "name": "KpnHackathon",
+  "description": "Project for the KpnHackathon",
+  "main": "index.php",
+  "authors": [
+    "Koen Hendriks <info@koenhendriks.com>",
+    "Peter Schriever <peterzen72@gmail.com>"
+  ],
+  "license": "GNUv3",
+  "keywords": [
+    "hackathon",
+    "laravel",
+    "bootstrap"
+  ],
+  "homepage": "https://github.com/serioushomebrew/KpnHackathon",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

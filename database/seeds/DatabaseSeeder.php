@@ -11,19 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
 
-        $faker = new \Faker\Generator();
-
-        // add 50 users
-//        for ($i = 0; $i <= 50; $i++) {
-//            \App\Models\User::create([
-//               "name" => $faker->name,
-//               "email" => $faker->email,
-//               "password" => $faker->password,
-//               "" => $faker->password,
-//            ]);
-//        }
+         $this->call(EverythingSeeder::class);
 
     }
 }

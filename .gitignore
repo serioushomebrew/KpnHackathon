@@ -66,3 +66,6 @@ crashlytics-build.properties
 
 composer.lock
 .vagrant/
+
+# Ignore bower components
+public/bower_components/

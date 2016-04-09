@@ -3,14 +3,14 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateNewUsersTable extends Migration {
+class CreateUsersTable extends Migration {
 
 	public function up()
 	{
 		Schema::create('users', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
-			$table->integer('workspace_id');
+			$table->integer('workspace_id')->unsigned()->nullable();
 			$table->string('name', 255)->default('"no name assigned"');
 			$table->string('function', 255)->nullable();
 			$table->text('description')->nullable();

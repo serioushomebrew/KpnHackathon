@@ -3,11 +3,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateWorkspacesTable extends Migration {
+class CreateRoomsTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('workspaces', function(Blueprint $table) {
+		Schema::create('rooms', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
 			$table->integer('order');
@@ -15,12 +15,13 @@ class CreateWorkspacesTable extends Migration {
 			$table->string('title', 100)->default('"no title assigned"');
 			$table->text('description')->nullable();
 			$table->integer('max_users')->default('3');
-			$table->integer('has_specialworkspace')->unsigned()->nullable()->default(null);
+			$table->integer('is_specialroom')->unsigned()->nullable()->default(null);
+			$table->integer('floor_id')->unsigned();
 		});
 	}
 
 	public function down()
 	{
-		Schema::drop('workspaces');
+		Schema::drop('rooms');
 	}
 }

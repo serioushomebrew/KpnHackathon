@@ -3,11 +3,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateSpecialworkspacesTable extends Migration {
+class CreateSpecialroomsTable extends Migration {
 
 	public function up()
 	{
-		Schema::create('specialworkspaces', function(Blueprint $table) {
+		Schema::create('specialrooms', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
 			$table->string('action', 255);
@@ -16,6 +16,6 @@ class CreateSpecialworkspacesTable extends Migration {
 
 	public function down()
 	{
-		Schema::drop('specialworkspaces');
+		Schema::drop('specialrooms');
 	}
 }

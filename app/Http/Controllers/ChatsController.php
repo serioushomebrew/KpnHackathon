@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Auth;
 use App\Models\Chats;
 use App\Http\Requests;
 
@@ -20,7 +21,8 @@ class ChatsController extends Controller
 
     public function index()
     {
-        $chats = Chats::all();
+        $loggedInUser = Auth::user()->id;
+        $chats = Chats::where('start_user', $loggedInUser)->orWhere('receive_user', $loggedInUser)->get();
 
         \Response::json($chats->toArray());
     }

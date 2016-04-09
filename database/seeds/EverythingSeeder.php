@@ -1,7 +1,13 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use App\Models\Building;
+use App\Models\Floor;
+use App\Models\Room;
+use App\Models\SpecialRoom;
+use App\Models\User;
+use App\Models\Skill;
+use App\Models\UserSkill;
 class EverythingSeeder extends Seeder
 {
     /**
@@ -11,6 +17,11 @@ class EverythingSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('buildings')->truncate();
+        DB::table('floors')->truncate();
+        DB::table('rooms')->truncate();
+
+
 
         // dont mind the dumped providers, i cba to find out which ones are required
         // @TODO: nice to clean this up when we have time
@@ -27,21 +38,42 @@ class EverythingSeeder extends Seeder
         $faker->addProvider(new Faker\Provider\Internet($faker));
 
         // add 4 buildings
-        \App\Models\Building::unguard();
-        for ($i = 1; $i <= 4; $i++) {
-            \App\Models\Building::create([
-                "address" => $faker->address,
-                "place" => $faker->city,
-                "floor_levels" => rand(1, 6),
-                "region" => $faker->word
-            ]);
-        }
+        Building::unguard();
+
+        Building::create([
+            "place" => 'Groningen',
+            "floor_levels" => rand(1, 6),
+            "address" => $faker->address,
+            "region" => $faker->word
+        ]);
+
+        Building::create([
+            "place" => 'Zwolle',
+            "floor_levels" => rand(1, 6),
+            "address" => $faker->address,
+            "region" => $faker->word
+        ]);
+
+        Building::create([
+            "place" => 'Amsterdam',
+            "floor_levels" => rand(1, 6),
+            "address" => $faker->address,
+            "region" => $faker->word
+        ]);
+
+        Building::create([
+            "place" => 'Rotterdam',
+            "floor_levels" => rand(1, 6),
+            "address" => $faker->address,
+            "region" => $faker->word
+        ]);
+
 
         // add floors for all the buildings
-        \App\Models\Floor::unguard();
-        foreach (\App\Models\Building::all() as $building) {
+        Floor::unguard();
+        foreach (Building::all() as $building) {
             for ($i = 0; $i <= $building->floor_levels; $i++) {
-                \App\Models\Floor::create([
+                Floor::create([
                     "level" => $i,
                     "title" => $faker->word,
                     "description" => $faker->text(200),
@@ -49,18 +81,18 @@ class EverythingSeeder extends Seeder
                 ]);
             }
         }
-        \App\Models\Building::reguard();
+        Building::reguard();
 
         // add 6 rooms and make 1 special for each floor
-        \App\Models\Room::unguard();
-        \App\Models\SpecialRoom::unguard();
-        foreach (\App\Models\Floor::all() as $floor) {
+        Room::unguard();
+        SpecialRoom::unguard();
+        foreach (Floor::all() as $floor) {
             for ($i = 1; $i <= 6; $i++) {
                 if($i == 1) {
-                    $specRoom = \App\Models\SpecialRoom::create([
+                    $specRoom = SpecialRoom::create([
                         "action" => "insertRecognizableActionHere"  // @TODO: remember to manually insert actions
                     ]);
-                    \App\Models\Room::create([
+                    Room::create([
                         "order" => $i,
                         "category" => $faker->word,
                         "description" => $faker->text(200),
@@ -70,7 +102,7 @@ class EverythingSeeder extends Seeder
                         "is_specialroom" => $specRoom
                     ]);
                 }
-                \App\Models\Room::create([
+                Room::create([
                     "order" => $i,
                     "category" => $faker->word,
                     "description" => $faker->text(200),
@@ -80,42 +112,42 @@ class EverythingSeeder extends Seeder
                 ]);
             }
         }
-        \App\Models\Room::reguard();
-        \App\Models\SpecialRoom::reguard();
-        \App\Models\Floor::reguard();
+        Room::reguard();
+        SpecialRoom::reguard();
+        Floor::reguard();
 
         // add 50 users
-        \App\Models\User::unguard();
+        User::unguard();
         for ($i = 1; $i <= 50; $i++) {
-            \App\Models\User::create([
+            User::create([
                 "name" => $faker->name,
                 "function" => $faker->word,
-                "room_id" => \App\Models\Room::where(["id" => $i])->get(["id"]),
+                "room_id" => Room::where(["id" => $i])->get(["id"]),
                 "description" => $faker->text(200),
                 "image" => "/img/avatars/" . $i,
                 "image_thumb" => "/img/avatar_thumbs/" . $i,
                 "active" => 1
             ]);
         }
-        \App\Models\User::reguard();
+       User::reguard();
 
         // add 3 skills for each user with corresponding UserSkills rows
-        \App\Models\Skill::unguard();
-        \App\Models\UserSkill::unguard();
-        foreach (\App\Models\User::all() as $user) {
+        Skill::unguard();
+        UserSkill::unguard();
+        foreach (User::all() as $user) {
             for ($i = 1; $i <= 3 ; $i++) {
-                $skillId = \App\Models\Skill::create([
+                $skillId = Skill::create([
                     "title" => $faker->word,
                     "description" => $faker->text(200),
                 ]);
-                \App\Models\UserSkill::create([
+                UserSkill::create([
                     "user_id" => $user->id,
                     "skill_id" => $skillId,
                 ]);
             }
         }
-        \App\Models\UserSkill::reguard();
-        \App\Models\Skill::reguard();
+        UserSkill::reguard();
+        Skill::reguard();
 
     }
 }

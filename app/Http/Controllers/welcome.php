@@ -25,7 +25,7 @@ class welcome extends Controller
 
     public function building($building)
     {
-        return view('building', compact('building'));
 
+        return view('building', compact('building'));
     }
 }

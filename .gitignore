@@ -69,6 +69,7 @@ composer.lock
 
 # ide-helper
 _ide_helper.php
+_ide_helper_models.php
 
 # Ignore bower components
 public/bower_components/

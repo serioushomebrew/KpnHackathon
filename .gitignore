@@ -64,3 +64,4 @@ crashlytics-build.properties
 .env.php
 .env
 
+composer.lock

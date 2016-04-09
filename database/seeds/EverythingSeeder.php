@@ -118,14 +118,12 @@ class EverythingSeeder extends Seeder
 
         // add 50 users
         User::unguard();
-        for ($i = 1; $i <= 50; $i++) {
+        foreach(range(0,1000) as $user){
             User::create([
                 "name" => $faker->name,
                 "function" => $faker->word,
-                "room_id" => Room::where(["id" => $i])->get(["id"]),
+                "room_id" => rand(0,count(Room::all())),
                 "description" => $faker->text(200),
-                "image" => "/img/avatars/" . $i,
-                "image_thumb" => "/img/avatar_thumbs/" . $i,
                 "active" => 1
             ]);
         }

@@ -55,6 +55,25 @@
                 </button>
                 <a class="navbar-brand" href="#">KPN - Digital Work Environment</a>
             </div>
+
+            <!-- Right Side Of Navbar -->
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Authentication Links -->
+                @if (Auth::guest())
+                    <li><a href="{{ url('/login') }}">Login</a></li>
+                    <li><a href="{{ url('/register') }}">Register</a></li>
+                @else
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            {{ Auth::user()->name }} <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                @endif
+            </ul>
             <!-- Collect the nav links, forms, and other content for toggling -->
             {{--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">--}}
                 {{--<ul class="nav navbar-nav">--}}
@@ -73,7 +92,13 @@
         </div>
         <!-- /.container -->
     </nav>
-
+    <div class="containter">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2></h2>
+            </div>
+        </div>
+    </div>
     @yield('content')
 
 <!-- jQuery and Bootstrap JS -->

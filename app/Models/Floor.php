@@ -4,9 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Floor extends Model {
+class Floor extends Model
+{
 
-	protected $table = 'floors';
-	public $timestamps = true;
+    protected $table = 'floors';
+    public $timestamps = true;
+
+
+    public function rooms()
+    {
+        return $this->hasMany('\App\Models\Room', 'floor_id');
+    }
+
+    public function building()
+    {
+        return $this->belongsTo('\App\Models\Building', 'id');
+    }
+
+    public function users() {
+        return $this->hasManyThrough('\App\Models\User', '\App\Models\Room');
+    }
 
 }

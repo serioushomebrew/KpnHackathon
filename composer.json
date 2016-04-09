@@ -1,0 +1,16 @@
+{
+  "name": "serioushomebrew/KpnHackathon",
+  "description": "Kpn hackathon project",
+  "minimum-stability": "stable",
+  "license": "GNUv3",
+  "authors": [
+    {
+      "name": "Koen Hendriks",
+      "email": "info@koenhendriks.com"
+    },
+    {
+      "name": "Peter Schriever",
+      "email": "peterzen72@mgmail.com"
+    }
+  ]
+}

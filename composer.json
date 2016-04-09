@@ -12,5 +12,8 @@
       "name": "Peter Schriever",
       "email": "peterzen72@mgmail.com"
     }
-  ]
+  ],
+  "require-dev": {
+    "laravel/homestead": "^3.0"
+  }
 }

@@ -9,8 +9,8 @@ class Skill extends Model {
 	protected $table = 'skills';
 	public $timestamps = true;
 
-	public function users() {
-		return $this->hasManyThrough('\App\Models\User','\App\Models\UserSkill','skill_id','id','id');
-	}
-
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User', 'users_skills', 'skill_id', 'user_id');
+    }
 }

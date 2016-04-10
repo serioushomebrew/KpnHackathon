@@ -202,13 +202,13 @@
                                             '</div>' +
                                             '</div>' +
                                             '<div class="col-xs-1 avatar">' +
-                                            '<img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">' +
+                                            '<img src="'+item.user.image+'" class=" img-responsive ">' +
                                             '</div>'+
                                             '</div>'
                                 }else {
                                     html = '<div class="row msg_container base_receive ">' +
                                             '<div class="col-xs-1 avatar">' +
-                                            '<img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">' +
+                                            '<img src="'+item.user.image+'" class=" img-responsive ">' +
                                             '</div>' +
                                             '<div class="col-xs-10 col-md-10">' +
                                             '<div class="messages msg_receive">' +
@@ -267,13 +267,13 @@
                                                 '</div>' +
                                             '</div>' +
                                             '<div class="col-xs-1 avatar">' +
-                                                '<img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">' +
+                                                '<img src="'+item.user.image+'" class=" img-responsive ">' +
                                             '</div>'+
                                         '</div>'
                             }else {
                                 html = '<div class="row msg_container base_receive ">' +
                                             '<div class="col-xs-1 avatar">' +
-                                                '<img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">' +
+                                                '<img src="'+item.user.image+'" class=" img-responsive ">' +
                                             '</div>' +
                                             '<div class="col-xs-10 col-md-10">' +
                                                 '<div class="messages msg_receive">' +

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Auth\AuthController;
 use App\Models\Building;
 use App\Models\Skill;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -36,10 +35,23 @@ class welcome extends Controller
             die('Locatie niet gevonden'); // HAHA dit mag eigenlijk niet maar ik doe het toch #hackathon
         }
 
-        // get filter options
-        $skills = Skill::all();
+        return view('building', compact('building'));
+    }
 
-        return view('building', compact('building', 'skills'));
+    public function skillSearch($search)
+    {
+        $skills = Skill::where('title','LIKE', '%'.$search.'%')->get();
+
+        return \Response::json($skills->toArray());
+    }
+
+    public function indexUser($skillId)
+    {
+        $skill = Skill::find($skillId);
+
+        return view('skill.users', compact('skill'));
+
+
     }
 
     public function searchUsersWithSkills($query) {

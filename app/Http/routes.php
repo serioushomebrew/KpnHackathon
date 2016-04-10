@@ -16,7 +16,7 @@ Route::get('/devdebug', 'DebugController@test');
 
 Route::auth();
 Route::get('/', 'welcome@index');
-Route::resource('chats','ChatsController');
+Route::resource('chats','ChatController');
 Route::get('/{building}', ['as' => 'building', 'uses' => 'welcome@building']);
 
 

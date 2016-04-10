@@ -22,6 +22,7 @@ class Building extends Model
         }
         return $returnUsers;
     }
+    
 
     public function getMaxUsers()
     {

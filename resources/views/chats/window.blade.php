@@ -141,7 +141,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading top-bar">
                         <div class="col-md-8 col-xs-8">
-                            <h3 class="panel-title"><i class="fa fa-comment"></i> <span style="margin-left: 50px;">Conversation with <strong>{{ $otherUser->name }}</strong></span>
+                            <h3 class="panel-title"><i class="fa fa-comment"></i> <span style="margin-left: 50px;">Gesprek met <strong>{{ $otherUser->name }}</strong></span>
                             </h3>
                         </div>
                     </div>

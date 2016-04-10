@@ -42,6 +42,7 @@
             top: 35px;
             right: 0;
             padding-top: 100px;
+            margin-bottom: 50px;
             left: 0;
         }
 
@@ -138,41 +139,11 @@
                         </div>
                     </div>
                     <div class="panel-body msg_container_base">
-                        @foreach($chatMessages as $message)
-                            @if ($message->user->id == $otherUser->id)
-                                <div class="row msg_container base_receive">
-                                    <div class="col-xs-1 avatar">
-                                        <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg"
-                                             class=" img-responsive ">
-                                    </div>
-                                    <div class="col-md-10 col-xs-10">
-                                        <div class="messages msg_sent">
-                                            <p>{{ $message->message }}</p>
-                                            <time datetime="2009-11-13T20:00">{{ $message->user->name }}
-                                                • {{ date("H:i") }}</time>
-                                        </div>
-                                    </div>
-                                </div>
-                            @else
-                                <div class="row msg_container base_sent ">
-                                    <div class="col-xs-10 col-md-10">
-                                        <div class="messages msg_receive">
-                                            <p>{{ $message->message}}</p>
-                                            <time datetime="2009-11-13T20:00">{{ $message->user->name }}
-                                                • {{ date("H:i") }}</time>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-1 avatar">
-                                        <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg"
-                                             class=" img-responsive ">
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
+
                     </div>
                     <div class="panel-footer">
                         <div class="input-group">
-                            <input id="btn-input" type="text" class="form-control input-sm chat_input"
+                            <input id="chat-input" type="text" class="form-control input-sm chat_input"
                                    placeholder="Write your message here..."/>
                         <span class="input-group-btn">
                         <button class="btn btn-primary btn-sm" id="btn-chat">Send</button>
@@ -183,20 +154,113 @@
             </div>
         </div>
     </div>
+@endsection
 
+@section('script')
     <script>
-        function LoadFinance() {
-            $(function () {
-                $.getJSON(
-                        "",
-                        function (json) {
-                            $('#finance').text(json.query.results.quote.Change);
-                            // Patching payload into page element ID = "dog" });
+            var Chat = {
+                lastChat : 0,
+
+                get : function(roomId){
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '/chats/'+roomId,
+                        headers: {
+                            "Content-Type":"application/json"
+                        }
+                    }).done(function(data) {
+
+                        $.each(data,function(index,item){
+//                            console.log(item.id+' > '+Chat.lastChat);
+                            if(item.id > Chat.lastChat){
+                                Chat.lastChat = item.id;
+//                                console.log(item.id+' is hoger!');
+
+                                var html;
+
+                                if(item.user_id != {{ Auth::user()->id }}){
+                                    html = '<div class="row msg_container base_sent ">' +
+                                            '<div class="col-xs-10 col-md-10">' +
+                                            '<div class="messages msg_receive">' +
+                                            '<p>'+item.message+'</p>' +
+                                            '<time datetime="2009-11-13T20:00"></time>' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '<div class="col-xs-1 avatar">' +
+                                            '<img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">' +
+                                            '</div>'+
+                                            '</div>'
+                                }else {
+                                    html = '<div class="row msg_container base_receive ">' +
+                                            '<div class="col-xs-1 avatar">' +
+                                            '<img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">' +
+                                            '</div>' +
+                                            '<div class="col-xs-10 col-md-10">' +
+                                            '<div class="messages msg_receive">' +
+                                            '<p>'+item.message+'</p>' +
+                                            '<time datetime="2009-11-13T20:00"></time>' +
+                                            '</div>' +
+                                            '</div>'+
+                                            '</div>';
+                                }
+                                $('.msg_container_base').append(html);
+                            }
                         });
-            }
+                    });
+                },
+                init : function(roomId){
 
-            $(document).ready(function () {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/chats/'+roomId,
+                        headers: {
+                            "Content-Type":"application/json"
+                        }
+                    }).done(function(data) {
 
-            });
+                        $.each(data,function(index,item){
+
+                            var html;
+
+                            if(item.user_id != {{ Auth::user()->id }}){
+                                html = '<div class="row msg_container base_sent ">' +
+                                            '<div class="col-xs-10 col-md-10">' +
+                                                '<div class="messages msg_receive">' +
+                                                    '<p>'+item.message+'</p>' +
+                                                    '<time datetime="2009-11-13T20:00"></time>' +
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="col-xs-1 avatar">' +
+                                                '<img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">' +
+                                            '</div>'+
+                                        '</div>'
+                            }else {
+                                html = '<div class="row msg_container base_receive ">' +
+                                            '<div class="col-xs-1 avatar">' +
+                                                '<img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">' +
+                                            '</div>' +
+                                            '<div class="col-xs-10 col-md-10">' +
+                                                '<div class="messages msg_receive">' +
+                                                    '<p>'+item.message+'</p>' +
+                                                    '<time datetime="2009-11-13T20:00"></time>' +
+                                                '</div>' +
+                                            '</div>'+
+                                        '</div>';
+                            }
+                            Chat.lastChat = item.id;
+                            $('.msg_container_base').append(html);
+                            window.setInterval(function(){
+                                Chat.get(4);
+                            }, 1000);
+
+                        });
+                    });
+                }
+            };
+
+        $(document).ready(function(){
+           Chat.init({{ $chatMessages->first()->chats_id }});
+        });
     </script>
 @endsection

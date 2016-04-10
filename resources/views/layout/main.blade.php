@@ -100,6 +100,8 @@
 {!! Html::script('bower_components/bootstrap/dist/js/bootstrap.min.js') !!}
 {!! Html::script('js/scripts.js') !!}
 
+@yield('script')
+
 </body>
 
 </html>

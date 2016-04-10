@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Models\Building;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -34,5 +35,19 @@ class welcome extends Controller
         }
 
         return view('building', compact('building'));
+    }
+
+    public function skillSearch($search)
+    {
+        $skills = Skill::where('title','LIKE', '%'.$search.'%')->get();
+
+        return \Response::json($skills->toArray());
+    }
+
+    public function indexUser($skillId)
+    {
+        $skill = Skill::find($skillId);
+
+        return view('skill.users', compact('skill'));
     }
 }

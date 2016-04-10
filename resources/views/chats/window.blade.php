@@ -2,6 +2,14 @@
 
 @section('content')
     <style>
+        .base_sent * {
+            text-align: right;
+        }
+
+        .base_receive * {
+            text-align: left;
+        }
+
         .panel.panel_default {
             left: 0;
             top: 61px;

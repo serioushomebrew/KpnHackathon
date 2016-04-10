@@ -134,11 +134,15 @@
                 <div class="panel panel-default">
                     <div class="panel-heading top-bar">
                         <div class="col-md-8 col-xs-8">
-                            <h3 class="panel-title"><i class="fa fa-comment"></i> <span style="margin-left: 50px;">Conversation with <strong>{{ $otherUser->name }}</strong></span>
+                            <h3 class="panel-title"><i class="fa fa-comment"></i> <span style="margin-left: 50px;">Conversation with <strong>{{ $otherUser->name }}</strong>
+                                    @if($otherUser->room)
+                                        Aanwezig in {{ $otherUser->room->floor->building->place }} op verdieping {{ $otherUser->room->floor->level }} in kamer {{ $otherUser->room->order }}
+                                    @endif
+                                </span>
                             </h3>
                         </div>
                     </div>
-                    <div class="panel-body msg_container_base">
+                    <div class="panel-body msg_container_base" id="chatbox">
 
                     </div>
                     <div class="panel-footer">
@@ -205,8 +209,25 @@
                                             '</div>';
                                 }
                                 $('.msg_container_base').append(html);
+                                var objDiv = document.getElementById("chatbox");
+                                objDiv.scrollTop = objDiv.scrollHeight;
                             }
                         });
+                    });
+                },
+                say : function(){
+                    var roomId = {{ $chatsId }};
+                    var userId = {{ Auth::user()->id }};
+                    var message = $('#chat-input').val();
+
+                    $.ajax({
+                        url: '/chats',
+                        type: 'POST',
+                        data: {"userId": userId, "message":message, "chatsId": roomId},
+                        dataType: 'JSON',
+                        success: function (data) {
+                            $('#chat-input').val('');
+                        }
                     });
                 },
                 init : function(roomId){
@@ -250,17 +271,27 @@
                             }
                             Chat.lastChat = item.id;
                             $('.msg_container_base').append(html);
-                            window.setInterval(function(){
-                                Chat.get(4);
-                            }, 1000);
+
+                            var objDiv = document.getElementById("chatbox");
+                            objDiv.scrollTop = objDiv.scrollHeight;
 
                         });
+
+                        window.setInterval(function(){
+                            Chat.get(roomId);
+                        }, 1000);
+
                     });
                 }
             };
 
         $(document).ready(function(){
-           Chat.init({{ $chatMessages->first()->chats_id }});
+           Chat.init({{ $chatsId }});
+
+            $('#btn-chat').click(function(){
+                Chat.say();
+            });
+
         });
     </script>
 @endsection

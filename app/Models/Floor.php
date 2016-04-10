@@ -18,7 +18,7 @@ class Floor extends Model
 
     public function building()
     {
-        return $this->belongsTo('\App\Models\Building', 'id');
+        return $this->belongsTo('\App\Models\Building', 'building_id','id');
     }
 
     public function freeSpots(){

@@ -10,7 +10,7 @@ class Room extends Model {
 	public $timestamps = true;
 
 	public function floor(){
-		return $this->belongsTo('\App\Models\Floor', 'id');
+		return $this->belongsTo('\App\Models\Floor', 'floor_id','id');
 	}
 
 	public function users() {

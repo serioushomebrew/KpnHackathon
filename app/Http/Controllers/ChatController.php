@@ -100,7 +100,7 @@ class ChatController extends Controller
         if($currentUser->id == $getUser)
             $getUser = Chats::where('id', $chatsId)->get()->first()->start_user;
         $otherUser = User::where('id', $getUser)->get()->first();
-        return view('chats.window', compact('chatMessages', 'currentUser', 'otherUser'));
+        return view('chats.window', compact('chatMessages', 'currentUser', 'otherUser','chatsId'));
     }
 
     /**

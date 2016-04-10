@@ -120,12 +120,21 @@ class EverythingSeeder extends Seeder
         // add 300 users
         User::unguard();
         foreach(range(0,300) as $user){
+
+            $image = "https://randomuser.me/api/portraits/med/";
+            if(rand(2,3) %2)
+                $image .= 'women';
+            else
+                $image .= 'men';
+
+            $image .= "/".rand(1,99).".jpg";
+
             User::create([
                 "name" => $faker->name,
                 "function" => $faker->word,
                 "room_id" => rand(0,count(Room::all())),
                 "description" => $faker->text(200),
-                "image" => "https://randomuser.me/api/portraits/med/". rand(2,3) %2 ? 'women' : 'men'."/".rand(1,99).".jpg",
+                "image" => $image,
                 "active" => 1
             ]);
         }

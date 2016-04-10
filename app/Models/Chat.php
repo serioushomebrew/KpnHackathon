@@ -8,4 +8,8 @@ class Chat extends Model
 {
     protected $table = 'chat';
     public $timestamps = true;
+
+    public function user() {
+        return $this->hasOne('\App\Models\User', 'id', 'user_id');
+    }
 }

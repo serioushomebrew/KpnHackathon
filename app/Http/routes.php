@@ -21,3 +21,5 @@ Route::get('/{building}', ['as' => 'building', 'uses' => 'welcome@building']);
 
 
 
+
+

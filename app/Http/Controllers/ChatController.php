@@ -91,7 +91,7 @@ class ChatController extends Controller
     {
 
         // ! dont look at this method. This was written at half past 4..
-        $chatMessages = Chat::where('chats_id', $chatsId)->get();
+        $chatMessages = Chat::where('chats_id', $chatsId)->with('user')->get();
         if($request->ajax()) {
             return \Response::json($chatMessages->toArray());
         }

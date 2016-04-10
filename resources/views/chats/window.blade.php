@@ -196,7 +196,9 @@
                                             '<div class="col-xs-10 col-md-10">' +
                                             '<div class="messages msg_receive">' +
                                             '<p>'+item.message+'</p>' +
-                                            '<time datetime="2009-11-13T20:00"></time>' +
+                                            '<time datetime="2009-11-13T20:00">' +
+                                             item.user.name+' • ' +item.created_at+
+                                            '</time>' +
                                             '</div>' +
                                             '</div>' +
                                             '<div class="col-xs-1 avatar">' +
@@ -211,7 +213,9 @@
                                             '<div class="col-xs-10 col-md-10">' +
                                             '<div class="messages msg_receive">' +
                                             '<p>'+item.message+'</p>' +
-                                            '<time datetime="2009-11-13T20:00"></time>' +
+                                            '<time datetime="2009-11-13T20:00">' +
+                                                item.user.name+' • ' +item.created_at+
+                                            '</time>' +
                                             '</div>' +
                                             '</div>'+
                                             '</div>';
@@ -257,7 +261,9 @@
                                             '<div class="col-xs-10 col-md-10">' +
                                                 '<div class="messages msg_receive">' +
                                                     '<p>'+item.message+'</p>' +
-                                                    '<time datetime="2009-11-13T20:00"></time>' +
+                                                    '<time datetime="2009-11-13T20:00">' +
+                                                        item.user.name+' • ' +item.created_at+
+                                                    '</time>' +
                                                 '</div>' +
                                             '</div>' +
                                             '<div class="col-xs-1 avatar">' +
@@ -272,7 +278,9 @@
                                             '<div class="col-xs-10 col-md-10">' +
                                                 '<div class="messages msg_receive">' +
                                                     '<p>'+item.message+'</p>' +
-                                                    '<time datetime="2009-11-13T20:00"></time>' +
+                                                    '<time datetime="2009-11-13T20:00">' +
+                                                        item.user.name+' • ' +item.created_at+
+                                                    '</time>' +
                                                 '</div>' +
                                             '</div>'+
                                         '</div>';

@@ -90,14 +90,7 @@ class ChatController extends Controller
     public function show($chatsId, Request $request)
     {
         $currentUser = Auth::user();
-
-//        $ch = Chats::where('start_user', $currentUser->id)->where('receive_user', $chatsId)->first();
-//        $ch2 = Chats::where('receive_user', $currentUser->id)->where('start_user', $chatsId)->first();
-//
-//        if (!$ch && !$ch2) {
-//            Chats::create(['start_user' => $currentUser->id, "receive_user" => $chatsId]);
-//        }
-
+        
         // ! dont look at this method. This was written at half past 4..
         $chatMessages = Chat::where('chats_id', $chatsId)->get();
         if($request->ajax()) {

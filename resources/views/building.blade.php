@@ -59,7 +59,7 @@
                                                                         <div class="panel-heading">
                                                                             <div class="row">
                                                                                 <div class="col-xs-3">
-                                                                                    <img class="img-responsive img-circle" src="{{ $user->image }}">
+                                                                                    <img class="img-responsive img-circle" src="{{ $user->image }}" alt="{{ $user->name }}">
                                                                                 </div>
                                                                                 <div class="col-xs-9 text-right">
                                                                                     <div class="user-name">{{ $user->name }}</div>

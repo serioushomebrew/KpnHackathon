@@ -125,6 +125,7 @@ class EverythingSeeder extends Seeder
                 "function" => $faker->word,
                 "room_id" => rand(0,count(Room::all())),
                 "description" => $faker->text(200),
+                "image" => "https://randomuser.me/api/portraits/med/". rand(2,3) %2 ? 'women' : 'men'."/".rand(1,99).".jpg",
                 "active" => 1
             ]);
         }

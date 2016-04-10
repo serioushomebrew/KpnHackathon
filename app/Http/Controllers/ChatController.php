@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Chat;
 use App\Models\Chats;
+use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -20,14 +21,20 @@ class ChatController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $loggedInUser = Auth::user()->id;
         $chats = Chats::where('start_user', $loggedInUser)->orWhere('receive_user', $loggedInUser)->get();
-
-        return \Response::json($chats->toArray());
+        foreach ($chats as &$chat) {
+            $chat->start_user_name = User::where('id', $chat->start_user)->get(['name'])->first()->name;
+            $chat->receive_user_name = User::where('id', $chat->receive_user)->get(['name'])->first()->name;
+        }
+        if($request->ajax())
+            return \Response::json($chats->toArray());
+        return view('chats.index', compact('chats', 'loggedInUser'));
     }
 
     /**
@@ -57,17 +64,43 @@ class ChatController extends Controller
         return \Response::json($newChat->save());
     }
 
+    public function createChat($chatsId) {
+        $currentUser = Auth::user();
+
+        $ch = Chats::where('start_user', $currentUser->id)->where('receive_user', $chatsId)->first();
+        $ch2 = Chats::where('receive_user', $currentUser->id)->where('start_user', $chatsId)->first();
+
+        if (!$ch && !$ch2) {
+            $obj = Chats::create(['start_user' => $currentUser->id, "receive_user" => $chatsId]);
+            return \Redirect::route('chats.show', ['chats' => $obj->id]);
+        } else {
+            $result = !$ch ? $ch2->id : $ch->id;
+            return \Redirect::route('chats.show', ['chats' => $result]);
+        }
+    }
+
     /**
      * Display the specified resource.
      *
-     * @param $chatsId
+     * @param $chatsId a receiving user id
+     * @param Request $request
      * @return \Illuminate\Http\Response
      * @internal param int $id
      */
-    public function show($chatsId)
+    public function show($chatsId, Request $request)
     {
-        $chat = Chat::where('chats_id', $chatsId)->get();
-        return \Response::json($chat->toArray());
+        $currentUser = Auth::user();
+        
+        // ! dont look at this method. This was written at half past 4..
+        $chatMessages = Chat::where('chats_id', $chatsId)->get();
+        if($request->ajax()) {
+            return \Response::json($chatMessages->toArray());
+        }
+        $getUser = Chats::where('id', $chatsId)->get()->first()->receive_user;
+        if($currentUser->id == $getUser)
+            $getUser = Chats::where('id', $chatsId)->get()->first()->start_user;
+        $otherUser = User::where('id', $getUser)->get()->first();
+        return view('chats.window', compact('chatMessages', 'currentUser', 'otherUser'));
     }
 
     /**

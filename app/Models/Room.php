@@ -19,7 +19,7 @@ class Room extends Model {
 
     public function freeSpots()
     {
-        return $this->max_users - count($this->users());
+        return $this->max_users - count($this->users);
     }
 
 

@@ -9,3 +9,12 @@ body {
 .building{
     cursor: pointer;
 }
+
+.h4-label{
+    padding-top:19px;
+    padding-left: 200px;
+}
+
+.room-panel{
+    margin-bottom: 10px;
+}

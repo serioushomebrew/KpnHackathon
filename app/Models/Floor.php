@@ -22,7 +22,7 @@ class Floor extends Model
     }
 
     public function freeSpots(){
-        $taken = count($this->users());
+        $taken = count($this->users);
         $spots = 0;
         foreach($this->rooms as $room){
             $spots = $spots + $room->max_users;

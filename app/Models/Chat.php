@@ -9,9 +9,7 @@ class Chat extends Model
     protected $table = 'chat';
     public $timestamps = true;
 
-    public $fillable = [
-        "message", "user_id", "chats_id"
-    ];
+    public $fillable = ['chats_id','message','user_id'];
 
     public function user() {
         return $this->hasOne('\App\Models\User', 'id', 'user_id');

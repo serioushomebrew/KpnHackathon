@@ -50,6 +50,7 @@
             top: 35px;
             right: 0;
             padding-top: 100px;
+            margin-bottom: 50px;
             left: 0;
         }
 
@@ -141,46 +142,20 @@
                 <div class="panel panel-default">
                     <div class="panel-heading top-bar">
                         <div class="col-md-8 col-xs-8">
-                            <h3 class="panel-title"><i class="fa fa-comment"></i> <span style="margin-left: 50px;">Gesprek met <strong>{{ $otherUser->name }}</strong></span>
+                            <h3 class="panel-title"><i class="fa fa-comment"></i> <span style="margin-left: 50px;">Conversation with <strong>{{ $otherUser->name }}</strong>
+                                    @if($otherUser->room)
+                                        Aanwezig in {{ $otherUser->room->floor->building->place }} op verdieping {{ $otherUser->room->floor->level }} in kamer {{ $otherUser->room->order }}
+                                    @endif
+                                </span>
                             </h3>
                         </div>
                     </div>
-                    <div class="panel-body msg_container_base">
-                        @foreach($chatMessages as $message)
-                            @if ($message->user->id == $otherUser->id)
-                                <div class="row msg_container base_receive">
-                                    <div class="col-xs-1 avatar">
-                                        <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg"
-                                             class=" img-responsive ">
-                                    </div>
-                                    <div class="col-md-10 col-xs-10">
-                                        <div class="messages msg_sent">
-                                            <p>{{ $message->message }}</p>
-                                            <time datetime="2009-11-13T20:00">{{ $message->user->name }}
-                                                • {{ date("H:i") }}</time>
-                                        </div>
-                                    </div>
-                                </div>
-                            @else
-                                <div class="row msg_container base_sent ">
-                                    <div class="col-xs-10 col-md-10">
-                                        <div class="messages msg_receive">
-                                            <p>{{ $message->message}}</p>
-                                            <time datetime="2009-11-13T20:00">{{ $message->user->name }}
-                                                • {{ date("H:i") }}</time>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-1 avatar">
-                                        <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg"
-                                             class=" img-responsive ">
-                                    </div>
-                                </div>
-                            @endif
-                        @endforeach
+                    <div class="panel-body msg_container_base" id="chatbox">
+
                     </div>
                     <div class="panel-footer">
                         <div class="input-group">
-                            <input id="btn-input" type="text" class="form-control input-sm chat_input"
+                            <input id="chat-input" type="text" class="form-control input-sm chat_input"
                                    placeholder="Write your message here..."/>
                         <span class="input-group-btn">
                         <button class="btn btn-primary btn-sm" id="btn-chat">Send</button>
@@ -191,20 +166,148 @@
             </div>
         </div>
     </div>
+@endsection
 
+@section('script')
     <script>
-        function LoadFinance() {
-            $(function () {
-                $.getJSON(
-                        "",
-                        function (json) {
-                            $('#finance').text(json.query.results.quote.Change);
-                            // Patching payload into page element ID = "dog" });
+            var Chat = {
+                lastChat : 0,
+
+                get : function(roomId){
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '/chats/'+roomId,
+                        headers: {
+                            "Content-Type":"application/json"
+                        }
+                    }).done(function(data) {
+
+                        $.each(data,function(index,item){
+//                            console.log(item.id+' > '+Chat.lastChat);
+                            if(item.id > Chat.lastChat){
+                                Chat.lastChat = item.id;
+//                                console.log(item.id+' is hoger!');
+
+                                var html;
+
+                                if(item.user_id != {{ Auth::user()->id }}){
+                                    html = '<div class="row msg_container base_sent ">' +
+                                            '<div class="col-xs-10 col-md-10">' +
+                                            '<div class="messages msg_receive">' +
+                                            '<p>'+item.message+'</p>' +
+                                            '<time datetime="2009-11-13T20:00">' +
+                                             item.user.name+' • ' +item.created_at+
+                                            '</time>' +
+                                            '</div>' +
+                                            '</div>' +
+                                            '<div class="col-xs-1 avatar">' +
+                                            '<img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">' +
+                                            '</div>'+
+                                            '</div>'
+                                }else {
+                                    html = '<div class="row msg_container base_receive ">' +
+                                            '<div class="col-xs-1 avatar">' +
+                                            '<img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">' +
+                                            '</div>' +
+                                            '<div class="col-xs-10 col-md-10">' +
+                                            '<div class="messages msg_receive">' +
+                                            '<p>'+item.message+'</p>' +
+                                            '<time datetime="2009-11-13T20:00">' +
+                                                item.user.name+' • ' +item.created_at+
+                                            '</time>' +
+                                            '</div>' +
+                                            '</div>'+
+                                            '</div>';
+                                }
+                                $('.msg_container_base').append(html);
+                                var objDiv = document.getElementById("chatbox");
+                                objDiv.scrollTop = objDiv.scrollHeight;
+                            }
                         });
-            }
+                    });
+                },
+                say : function(){
+                    var roomId = {{ $chatsId }};
+                    var userId = {{ Auth::user()->id }};
+                    var message = $('#chat-input').val();
 
-            $(document).ready(function () {
+                    $.ajax({
+                        url: '/chats',
+                        type: 'POST',
+                        data: {"userId": userId, "message":message, "chatsId": roomId},
+                        dataType: 'JSON',
+                        success: function (data) {
+                            $('#chat-input').val('');
+                        }
+                    });
+                },
+                init : function(roomId){
 
+                    $.ajax({
+                        type: 'GET',
+                        url: '/chats/'+roomId,
+                        headers: {
+                            "Content-Type":"application/json"
+                        }
+                    }).done(function(data) {
+
+                        $.each(data,function(index,item){
+
+                            var html;
+
+                            if(item.user_id != {{ Auth::user()->id }}){
+                                html = '<div class="row msg_container base_sent ">' +
+                                            '<div class="col-xs-10 col-md-10">' +
+                                                '<div class="messages msg_receive">' +
+                                                    '<p>'+item.message+'</p>' +
+                                                    '<time datetime="2009-11-13T20:00">' +
+                                                        item.user.name+' • ' +item.created_at+
+                                                    '</time>' +
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="col-xs-1 avatar">' +
+                                                '<img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">' +
+                                            '</div>'+
+                                        '</div>'
+                            }else {
+                                html = '<div class="row msg_container base_receive ">' +
+                                            '<div class="col-xs-1 avatar">' +
+                                                '<img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">' +
+                                            '</div>' +
+                                            '<div class="col-xs-10 col-md-10">' +
+                                                '<div class="messages msg_receive">' +
+                                                    '<p>'+item.message+'</p>' +
+                                                    '<time datetime="2009-11-13T20:00">' +
+                                                        item.user.name+' • ' +item.created_at+
+                                                    '</time>' +
+                                                '</div>' +
+                                            '</div>'+
+                                        '</div>';
+                            }
+                            Chat.lastChat = item.id;
+                            $('.msg_container_base').append(html);
+
+                            var objDiv = document.getElementById("chatbox");
+                            objDiv.scrollTop = objDiv.scrollHeight;
+
+                        });
+
+                        window.setInterval(function(){
+                            Chat.get(roomId);
+                        }, 1000);
+
+                    });
+                }
+            };
+
+        $(document).ready(function(){
+           Chat.init({{ $chatsId }});
+
+            $('#btn-chat').click(function(){
+                Chat.say();
             });
+
+        });
     </script>
 @endsection

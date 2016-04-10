@@ -71,7 +71,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <a href="#">
+                                                                        <a href="{{ url('/newChat/'.$user->id) }}">
                                                                             <div class="panel-footer">
                                                                                 <span class="pull-left"><i class="fa fa-comments"></i> Open chat</span>
                                                                                 <span class="pull-right"><i

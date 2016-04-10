@@ -171,46 +171,4 @@
             </div>
         </div>
     </div>
-
-    {{--<div class="container">--}}
-        {{--<div class="row">--}}
-            {{--<div class="col-md-10 col-md-offset-1">--}}
-                {{--<div class="panel panel-default">--}}
-                    {{--<div class="panel-heading"><h3>Conversation with: {{ $otherUser->name }}</h3></div>--}}
-
-                    {{--<div class="panel-body">--}}
-                        {{--@foreach($chatMessages as $message)--}}
-
-                                {{--<div class="row">--}}
-                                    {{--<div class="col-md-3 col-md-offset-1">--}}
-                                        {{--{!! $currentUser->id == $message->user->id ? false : "<strong>".$otherUser->name."</strong>" !!}:--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-8">--}}
-                                        {{--{{ $message->message }}--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-3 pull-right" style="font-style: italic;color: #3c3c3c;font-size: 0.9em;">--}}
-                                        {{--{{ $message->created_at }}--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-
-                        {{--@endforeach--}}
-
-                                {{--<div class="row">--}}
-                                    {{--<div class="col-md-3 col-md-offset-1">--}}
-                                        {{--<label for="newMessage" style="font-weight: bold;"> Message: </label>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-5">--}}
-                                        {{--<input type="text" id="newMessage" class="form-control" style="margin: 5px;">--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-3 pull-right" style="font-style: italic;color: #3c3c3c;font-size: 0.9em;">--}}
-                                        {{--<button class="btn btn-default" id="ajxNewMessage" style="margin:5px;">Send</button>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-
 @endsection

@@ -6,8 +6,17 @@
             <div class="col-xs-12">
                 <h2>
                     {{ $building->place }} - {{ $building->freeSpots()  }} plekken beschikbaar
-                    <a href="#" class="filter">Filter<i class="fa fa-filter"></i></a>
+                    <a href="#" class="filter">Zoeken <i class="fa fa-search"></i></a>
                 </h2>
+                <div class="filter-container pull-right" style="display:block;">
+                    <h3>Werknemers op skills zoeken.</h3>
+                    <hr/>
+                    <input type="text" id="searchUsersWithSkills" class="form-control" style="background: #ccc;"/>
+                    <div class="searchResults">
+
+                    </div>
+                </div>
+
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     @foreach($building->floors as $floor)
                         <div class="panel panel-default">
@@ -142,4 +151,51 @@
             </div>
         </div>
     </div>
+    <script src="http://kpn.app/bower_components/jquery/dist/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.filter').click(function () {
+                $('.filter-container').slideToggle();
+            });
+
+            $('#searchUsersWithSkills').on('change', function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/searchUsersWithSkills/'+$(this).val()
+                }).done(function (data) {
+                    console.log(data);
+                    $('.searchResults').html('<div class="col-xs-6 room-panel">' +
+                            '<div class="panel panel-primary">' +
+                            '<div class="panel-heading">' +
+                            '<div class="row">' +
+                            '<div class="col-xs-3">' +
+                            '<img class="img-responsive img-circle"src="{{ $user->image }}" alt="{{ $user->name }}">' +
+                            ' </div>' +
+                            '<div class="col-xs-9 text-right">' +
+                            '<div class="user-name">{{ $user->name }}</div>' +
+                            ' <div>' +
+                            '@foreach($user->skills as $skill)' +
+                            '<span class="label label-success">{{ $skill->title }}</span>' +
+                            '@endforeach' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<a href="{{ url('/newChat/'.$user->id) }}">' +
+                            '<div class="panel-footer">' +
+                            '<span class="pull-left"><i class="fa fa-comments"></i> Open chat</span>' +
+                            '<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>' +
+                            '<div class="clearfix"></div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</div>' +
+                            '</div>'
+                    );
+                });
+            });
+        });
+
+
+    </script>
 @endsection
+

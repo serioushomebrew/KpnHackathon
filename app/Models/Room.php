@@ -17,5 +17,10 @@ class Room extends Model {
 		return $this->hasMany('\App\Models\User', 'room_id');
 	}
 
+    public function freeSpots()
+    {
+        return $this->max_users - count($this->users);
+    }
+
 
 }

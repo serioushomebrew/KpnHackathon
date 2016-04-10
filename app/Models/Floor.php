@@ -21,6 +21,16 @@ class Floor extends Model
         return $this->belongsTo('\App\Models\Building', 'id');
     }
 
+    public function freeSpots(){
+        $taken = count($this->users);
+        $spots = 0;
+        foreach($this->rooms as $room){
+            $spots = $spots + $room->max_users;
+        }
+
+        return $spots - $taken;
+    }
+
     public function users() {
         return $this->hasManyThrough('\App\Models\User', '\App\Models\Room');
     }

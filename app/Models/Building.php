@@ -23,6 +23,24 @@ class Building extends Model
         return $returnUsers;
     }
     
+
+    public function getMaxUsers()
+    {
+        $maxUsers = 0;
+        foreach ($this->floors as $floor) {
+            foreach($floor->rooms as $room) {
+                $maxUsers = $room->max_users+$maxUsers;
+            }
+        }
+
+        return $maxUsers;
+    }
+
+    public function freeSpots()
+    {
+        return $this->getMaxUsers() - count($this->getUsers());
+    }
+
     public function floors()
     {
         return $this->hasMany('\App\Models\Floor', 'building_id');
@@ -31,9 +49,4 @@ class Building extends Model
     public function rooms() {
         return $this->hasManyThrough('\App\Models\Room', '\App\Models\Floor');
     }
-
-    public function users() {
-        return $this->hasManyThrough('\App\Models\User', '\App\Models\Floor');
-    }
-
 }

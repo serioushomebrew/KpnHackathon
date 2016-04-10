@@ -31,4 +31,9 @@ class User extends Authenticatable
 		return $this->hasOne('\App\Models\Floor', 'id');
 	}
 
+    public function skills()
+    {
+        return $this->hasManyThrough('\App\Models\Skill','\App\Models\UserSkill','user_id','id','id');
+    }
+
 }

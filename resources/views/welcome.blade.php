@@ -2,6 +2,7 @@
 
 
 @section('content')
+
     <div class="container-fluid">
         <div class="row full">
             <div class="col-xs-12 col-md-6 col-md-offset-3">
@@ -17,7 +18,7 @@
                                 </div>
                                 <div class="col-xs-12 text-center">
                                     <h3>
-                                        <span class="label label-success">{{ count($building->getUsers()) }} plekken</span>
+                                        <span class="label label-success">{{ $building->freeSpots() }} plekken</span>
                                     </h3>
                                 </div>
                             </div>

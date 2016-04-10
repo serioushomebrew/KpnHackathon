@@ -42,28 +42,28 @@ class EverythingSeeder extends Seeder
 
         Building::create([
             "place" => 'Groningen',
-            "floor_levels" => rand(1, 6),
+            "floor_levels" => rand(1, 30),
             "address" => $faker->address,
             "region" => $faker->word
         ]);
 
         Building::create([
             "place" => 'Zwolle',
-            "floor_levels" => rand(1, 6),
+            "floor_levels" => rand(1, 40),
             "address" => $faker->address,
             "region" => $faker->word
         ]);
 
         Building::create([
             "place" => 'Amsterdam',
-            "floor_levels" => rand(1, 6),
+            "floor_levels" => rand(1, 30),
             "address" => $faker->address,
             "region" => $faker->word
         ]);
 
         Building::create([
             "place" => 'Rotterdam',
-            "floor_levels" => rand(1, 6),
+            "floor_levels" => rand(1, 36),
             "address" => $faker->address,
             "region" => $faker->word
         ]);
@@ -87,7 +87,7 @@ class EverythingSeeder extends Seeder
         Room::unguard();
         SpecialRoom::unguard();
         foreach (Floor::all() as $floor) {
-            for ($i = 1; $i <= rand(4,10); $i++) {
+            for ($i = 1; $i <= rand(4,20); $i++) {
                 if($i == 1) {
                     $specRoom = SpecialRoom::create([
                         "action" => "insertRecognizableActionHere"  // @TODO: remember to manually insert actions
@@ -97,28 +97,29 @@ class EverythingSeeder extends Seeder
                         "category" => $faker->word,
                         "description" => $faker->text(200),
                         "title" => $faker->word,
-                        "max_users" => 6,
+                        "max_users" => 12,
                         "floor_id" => $floor->id,
                         "is_specialroom" => $specRoom
                     ]);
+                }else {
+                    Room::create([
+                        "order" => $i,
+                        "category" => $faker->word,
+                        "description" => $faker->text(200),
+                        "title" => $faker->word,
+                        "max_users" => rand(5, 8),
+                        "floor_id" => $floor->id
+                    ]);
                 }
-                Room::create([
-                    "order" => $i,
-                    "category" => $faker->word,
-                    "description" => $faker->text(200),
-                    "title" => $faker->word,
-                    "max_users" => rand(2, 5),
-                    "floor_id" => $floor->id
-                ]);
             }
         }
         Room::reguard();
         SpecialRoom::reguard();
         Floor::reguard();
 
-        // add 50 users
+        // add 300 users
         User::unguard();
-        foreach(range(0,1000) as $user){
+        foreach(range(0,300) as $user){
             User::create([
                 "name" => $faker->name,
                 "function" => $faker->word,
@@ -133,14 +134,16 @@ class EverythingSeeder extends Seeder
         Skill::unguard();
         UserSkill::unguard();
         foreach (User::all() as $user) {
-            for ($i = 1; $i <= 3 ; $i++) {
-                $skillId = Skill::create([
+
+            for ($i = 1; $i <= rand(1,3) ; $i++) {
+                $skill = Skill::create([
                     "title" => $faker->word,
                     "description" => $faker->text(200),
                 ]);
+
                 UserSkill::create([
                     "user_id" => $user->id,
-                    "skill_id" => $skillId,
+                    "skill_id" => $skill->id,
                 ]);
             }
         }

@@ -50,7 +50,7 @@
                                                         <div class="row">
                                                             @if(count($room->users) ==0)
                                                                 <div class="col-xs-12">
-                                                                    <p style="height: 116px;">Deze kamer is nog helemaal leeg.</p>
+                                                                    <p style="height: 115px;">Deze kamer is nog helemaal leeg.</p>
                                                                 </div>
                                                             @endif
                                                             @foreach($room->users as $user)

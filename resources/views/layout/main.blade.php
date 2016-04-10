@@ -47,7 +47,7 @@
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <a class="navbar-brand hidden-xs hidden-sm" href="#">KPN - Digital Work Environment</a>
+                <a class="navbar-brand hidden-xs hidden-sm" href="/">KPN - Digital Work Environment</a>
             </div>
 
             <!-- Right Side Of Navbar -->
@@ -63,7 +63,8 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                            <li><a href="{{ route('chats.index') }}">Chatruimtes<i class="fa fa-btn fa-comment pull-right" style="margin-top: 5px;"></i></a></li>
+                            <li><a href="{{ url('/logout') }}">Logout<i class="fa fa-btn fa-sign-out pull-right" style="margin-top: 5px;"></i></a></li>
                         </ul>
                     </li>
                 @endif

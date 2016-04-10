@@ -82,20 +82,20 @@ class ChatController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param $chatsId a receiving user id
+     * @param $chatsId string
      * @param Request $request
      * @return \Illuminate\Http\Response
      * @internal param int $id
      */
     public function show($chatsId, Request $request)
     {
-        $currentUser = Auth::user();
-        
+
         // ! dont look at this method. This was written at half past 4..
         $chatMessages = Chat::where('chats_id', $chatsId)->get();
         if($request->ajax()) {
             return \Response::json($chatMessages->toArray());
         }
+        $currentUser = Auth::user();
         $getUser = Chats::where('id', $chatsId)->get()->first()->receive_user;
         if($currentUser->id == $getUser)
             $getUser = Chats::where('id', $chatsId)->get()->first()->start_user;

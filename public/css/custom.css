@@ -18,3 +18,11 @@ body {
 .room-panel{
     margin-bottom: 10px;
 }
+
+.filter {
+    color: #3c3c3c;
+    float: right;
+    margin-right: 5px;
+    font-size: 0.8em;
+    margin-top: 11px;
+}

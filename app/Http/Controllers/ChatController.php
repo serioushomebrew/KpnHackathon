@@ -64,22 +64,45 @@ class ChatController extends Controller
         return \Response::json($newChat->save());
     }
 
+    public function createChat($chatsId) {
+        $currentUser = Auth::user();
+
+        $ch = Chats::where('start_user', $currentUser->id)->where('receive_user', $chatsId)->first();
+        $ch2 = Chats::where('receive_user', $currentUser->id)->where('start_user', $chatsId)->first();
+
+        if (!$ch && !$ch2) {
+            $obj = Chats::create(['start_user' => $currentUser->id, "receive_user" => $chatsId]);
+            return \Redirect::route('chats.show', ['chats' => $obj->id]);
+        } else {
+            $result = !$ch ? $ch2->id : $ch->id;
+            return \Redirect::route('chats.show', ['chats' => $result]);
+        }
+    }
+
     /**
      * Display the specified resource.
      *
-     * @param $chatsId
+     * @param $chatsId a receiving user id
      * @param Request $request
      * @return \Illuminate\Http\Response
      * @internal param int $id
      */
     public function show($chatsId, Request $request)
     {
+        $currentUser = Auth::user();
+
+//        $ch = Chats::where('start_user', $currentUser->id)->where('receive_user', $chatsId)->first();
+//        $ch2 = Chats::where('receive_user', $currentUser->id)->where('start_user', $chatsId)->first();
+//
+//        if (!$ch && !$ch2) {
+//            Chats::create(['start_user' => $currentUser->id, "receive_user" => $chatsId]);
+//        }
+
         // ! dont look at this method. This was written at half past 4..
         $chatMessages = Chat::where('chats_id', $chatsId)->get();
         if($request->ajax()) {
             return \Response::json($chatMessages->toArray());
         }
-        $currentUser = Auth::user();
         $getUser = Chats::where('id', $chatsId)->get()->first()->receive_user;
         if($currentUser->id == $getUser)
             $getUser = Chats::where('id', $chatsId)->get()->first()->start_user;

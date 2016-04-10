@@ -15,4 +15,9 @@ class Chats extends Model
     protected $table = 'chats';
     public $timestamps = true;
 
+    public $fillable = [
+        "start_user",
+        "receive_user"
+    ];
+
 }

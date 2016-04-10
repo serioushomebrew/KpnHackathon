@@ -22,7 +22,7 @@ class Building extends Model
         }
         return $returnUsers;
     }
-
+    
     public function floors()
     {
         return $this->hasMany('\App\Models\Floor', 'building_id');

@@ -8,7 +8,7 @@
                     {{ $building->place }} - {{ $building->freeSpots()  }} plekken beschikbaar
                     <a href="#" class="filter">Zoeken <i class="fa fa-search"></i></a>
                 </h2>
-                <div class="filter-container pull-right" style="display:block;">
+                <div class="filter-container pull-right" style="display:none;">
                     <h3>Werknemers op skills zoeken.</h3>
                     <hr/>
                     <input type="text" id="searchUsersWithSkills" class="form-control" style="background: #ccc;"/>
@@ -26,6 +26,7 @@
                                        href="#collapse{{ $floor->level }}" aria-expanded="true"
                                        aria-controls="collapse{{ $floor->level }}">
                                         <span class="label label-success">{{ $floor->freeSpots() }} plekken</span>
+
                                         @if($floor->level == 0)
                                             Begane grond
                                         @elseif($floor->level == 1)
@@ -158,41 +159,21 @@
                 $('.filter-container').slideToggle();
             });
 
-            $('#searchUsersWithSkills').on('change', function () {
-                $.ajax({
-                    type: 'GET',
-                    url: '/searchUsersWithSkills/'+$(this).val()
-                }).done(function (data) {
-                    console.log(data);
-                    $('.searchResults').html('<div class="col-xs-6 room-panel">' +
-                            '<div class="panel panel-primary">' +
-                            '<div class="panel-heading">' +
-                            '<div class="row">' +
-                            '<div class="col-xs-3">' +
-                            '<img class="img-responsive img-circle"src="{{ $user->image }}" alt="{{ $user->name }}">' +
-                            ' </div>' +
-                            '<div class="col-xs-9 text-right">' +
-                            '<div class="user-name">{{ $user->name }}</div>' +
-                            ' <div>' +
-                            '@foreach($user->skills as $skill)' +
-                            '<span class="label label-success">{{ $skill->title }}</span>' +
-                            '@endforeach' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>' +
-                            '<a href="{{ url('/newChat/'.$user->id) }}">' +
-                            '<div class="panel-footer">' +
-                            '<span class="pull-left"><i class="fa fa-comments"></i> Open chat</span>' +
-                            '<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>' +
-                            '<div class="clearfix"></div>' +
-                            '</div>' +
-                            '</a>' +
-                            '</div>' +
-                            '</div>'
-                    );
+
+                $('#searchUsersWithSkills').on('input', function () {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/search/'+$(this).val()
+                    }).done(function (data) {
+
+                        $('.searchResults').html('');
+                        $.each(data, function(index, item){
+                            $('.searchResults').append('<div class="row"><div class="col-xs-12 text-center"> <a href="/skill/'+item.id+'" class="btn btn-primary">'+item.title+' </a></div></div>');
+                        });
+                    });
                 });
-            });
+
+
         });
 
 

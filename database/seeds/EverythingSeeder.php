@@ -140,22 +140,10 @@ class EverythingSeeder extends Seeder
         }
        User::reguard();
 
-        // add 3 skills for each user with corresponding UserSkills rows
         Skill::unguard();
         UserSkill::unguard();
         foreach (User::all() as $user) {
-
-            for ($i = 1; $i <= rand(1,3) ; $i++) {
-                $skill = Skill::create([
-                    "title" => $faker->word,
-                    "description" => $faker->text(200),
-                ]);
-
-                UserSkill::create([
-                    "user_id" => $user->id,
-                    "skill_id" => $skill->id,
-                ]);
-            }
+            UserSkill::create(['user_id' => $user->id, 'skill_id' => rand(1,8)]);
         }
         UserSkill::reguard();
         Skill::reguard();

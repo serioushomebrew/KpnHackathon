@@ -142,7 +142,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading top-bar">
                         <div class="col-md-8 col-xs-8">
-                            <h3 class="panel-title"><i class="fa fa-comment"></i> <span style="margin-left: 50px;">Conversation with <strong>{{ $otherUser->name }}</strong>
+                            <h3 class="panel-title"><i class="fa fa-comment"></i> <span style="margin-left: 50px;">Gesprek met <strong>{{ $otherUser->name }}</strong>
                                     @if($otherUser->room)
                                         Aanwezig in {{ $otherUser->room->floor->building->place }} op verdieping {{ $otherUser->room->floor->level }} in kamer {{ $otherUser->room->order }}
                                     @endif

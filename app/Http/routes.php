@@ -19,6 +19,7 @@ Route::get('newChat/{chatsId}', 'ChatController@createChat');
 Route::get('/search/{search}', 'welcome@skillSearch');
 Route::get('/skill/{skillId}', 'welcome@indexUser');
 Route::get('/', 'welcome@index');
+Route::get('/searchUsersWithSkills/{query}', 'welcome@searchUsersWithSkills');
 Route::resource('chats','ChatController');
 Route::get('/{building}', ['as' => 'building', 'uses' => 'welcome@building']);
 

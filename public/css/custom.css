@@ -18,3 +18,42 @@ body {
 .room-panel{
     margin-bottom: 10px;
 }
+
+.filter {
+    color: #3c3c3c;
+    float: right;
+    margin-right: 5px;
+    font-size: 0.8em;
+    margin-top: 11px;
+}
+
+.filter:hover {
+    text-decoration: none;
+}
+.filter:focus {
+    text-decoration: none;
+}
+
+.filter-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    top: 170px;
+    background: #c2c2c2;
+    padding: 22px 0 0 0;
+    max-width: 40%;
+    border-radius: 4px;
+}
+
+.filter-container input {
+    padding-right: 20px !important;
+    margin-left:20px !important;
+    margin-right:20px !important;
+    width:88%;
+    font-size: 1.3em;
+    z-index: 100;
+}
+
+.filter-container h3 {
+    font-size:1.5em;
+}

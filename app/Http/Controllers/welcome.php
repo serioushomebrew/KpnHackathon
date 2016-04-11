@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Models\Building;
-use App\Models\Skill;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;

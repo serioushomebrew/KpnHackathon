@@ -56,7 +56,7 @@ class ChatController extends Controller
     public function store(Request $request)
     {
         // add a new chat message(row into chat table)
-        $newChat = new Chat();z
+        $newChat = new Chat();
         $newChat->chats_id = $request->input("chatsId");
         $newChat->user_id = $request->input("userId");
         $newChat->message = $request->input("message");
